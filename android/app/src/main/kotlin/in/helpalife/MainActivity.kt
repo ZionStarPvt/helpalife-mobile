@@ -1,4 +1,4 @@
-package com.example.helpalife_mobile
+package `in`.helpalife
 
 import io.flutter.embedding.android.FlutterActivity
 

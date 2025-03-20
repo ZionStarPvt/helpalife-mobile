@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.helpalife_mobile"
+    namespace = "in.helpalife"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
