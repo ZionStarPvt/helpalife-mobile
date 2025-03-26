@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'login-api/login_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -93,6 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('Help A Life'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              },
+              child: const Text("Go to Login"),
+            ),
           ],
         ),
       ),
