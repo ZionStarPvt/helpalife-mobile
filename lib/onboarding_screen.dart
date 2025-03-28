@@ -91,19 +91,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         );
                       },
                     ),
+                    Positioned(
+                      bottom: 50,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          _images.length,
+                              (index) => buildDot(index),
+                        ),
+                      ),
+                    ),
                   ],
-                ),
-              ),
-              Positioned(
-                bottom: 50,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    _images.length,
-                        (index) => buildDot(index),
-                  ),
                 ),
               ),
               const SizedBox(height: 20),
