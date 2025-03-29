@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helpalife_mobile/onboarding_screen.dart';
+import 'package:helpalife_mobile/onborading_screen/onboarding_screen.dart';
 
 
 void main() {
