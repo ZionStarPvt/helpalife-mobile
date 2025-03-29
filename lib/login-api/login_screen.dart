@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-const Color darkGrayText = Color(0xFF4A4A4A);
+import '../constants.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,24 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _phoneNumberController = TextEditingController();
-  String? _phoneNumberError;
-
-  void _validatePhoneNumber(String value) {
-    if (value.isEmpty) {
-      setState(() {
-        _phoneNumberError = "Phone number is required";
-      });
-    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
-      setState(() {
-        _phoneNumberError = "Invalid phone number";
-      });
-    } else {
-      setState(() {
-        _phoneNumberError = null;
-      });
-    }
-  }
+  bool _isValidPhone = false;
+  String _completePhoneNumber = "";
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              TextField(
-                controller: _phoneNumberController,
-                keyboardType: TextInputType.phone,
-                onChanged: _validatePhoneNumber,
+              IntlPhoneField(
                 decoration: InputDecoration(
                   hintText: "Phone number",
-                  prefixText: "+1 ",
-                  prefixStyle: const TextStyle(color: Colors.black),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: const BorderSide(color: Colors.grey),
@@ -66,9 +45,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(8),
                     borderSide: const BorderSide(color: Colors.grey, width: 2),
                   ),
-                  errorText: _phoneNumberError,
                 ),
+                initialCountryCode: 'IN',
+                onChanged: (phone) {
+                  setState(() {
+                    _completePhoneNumber = phone.completeNumber;
+                    _isValidPhone = RegExp(
+                      r'^[0-9]{10,}$',
+                    ).hasMatch(phone.number);
+                  });
+                },
               ),
+
               const SizedBox(height: 10),
               const Text(
                 "We’ll call or text you to confirm your number. Standard message and data rates apply.",
@@ -81,12 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed:
-                      _phoneNumberError == null &&
-                              _phoneNumberController.text.isNotEmpty
+                      _isValidPhone
                           ? () {
-                            // Logic for continue with phone number
                             print(
-                              "Continue with phone number: ${_phoneNumberController.text}",
+                              "Continue with phone number: $_completePhoneNumber",
                             );
                           }
                           : null,
@@ -114,9 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const EmailPasswordLogin(),
-                    ),
+                    MaterialPageRoute(builder: (context) => const EmailLogin()),
                   );
                 },
               ),
@@ -170,16 +154,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class EmailPasswordLogin extends StatefulWidget {
-  const EmailPasswordLogin({super.key});
+class EmailLogin extends StatefulWidget {
+  const EmailLogin({super.key});
 
   @override
-  _EmailPasswordLoginState createState() => _EmailPasswordLoginState();
+  _EmailLoginState createState() => _EmailLoginState();
 }
 
-class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
+class _EmailLoginState extends State<EmailLogin> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   String? _emailError;
 
   void _validateEmail(String value) {
@@ -203,7 +186,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Email/Password Login')),
+      appBar: AppBar(title: const Text('Email Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -219,45 +202,6 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
               ),
               keyboardType: TextInputType.emailAddress,
               onChanged: _validateEmail,
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                hintText: "Password",
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(horizontal: 15),
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed:
-                    _emailError == null && _emailController.text.isNotEmpty
-                        ? () {
-                          // Logic for login with email and password.
-                          print(
-                            "Email: ${_emailController.text}, Password: ${_passwordController.text}",
-                          );
-                        }
-                        : null,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                child: const Text(
-                  "Log In",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {},
-              child: const Text(
-                "Forgot Password?",
-                style: TextStyle(color: Colors.blue, fontSize: 14),
-              ),
             ),
           ],
         ),
