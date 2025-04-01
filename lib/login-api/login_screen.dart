@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../pages/otp_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -71,11 +73,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed:
                       _isValidPhone
                           ? () {
-                            print(
-                              "Continue with phone number: $_completePhoneNumber",
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => OtpScreen(
+                                      contactInfo:
+                                          _completePhoneNumber,
+                                    ),
+                              ),
                             );
                           }
                           : null,
+
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
                     shape: RoundedRectangleBorder(
@@ -164,22 +174,37 @@ class EmailLogin extends StatefulWidget {
 class _EmailLoginState extends State<EmailLogin> {
   final TextEditingController _emailController = TextEditingController();
   String? _emailError;
+  bool _isEmailValid = false;
 
   void _validateEmail(String value) {
     if (value.isEmpty) {
       setState(() {
         _emailError = "Email is required";
+        _isEmailValid = false;
       });
     } else if (!RegExp(
       r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
     ).hasMatch(value)) {
       setState(() {
         _emailError = "Invalid email address";
+        _isEmailValid = false;
       });
     } else {
       setState(() {
         _emailError = null;
+        _isEmailValid = true;
       });
+    }
+  }
+
+  void _navigateToOtpScreen() {
+    if (_isEmailValid) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OtpScreen(contactInfo: _emailController.text),
+        ),
+      );
     }
   }
 
@@ -192,6 +217,7 @@ class _EmailLoginState extends State<EmailLogin> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Spacer(),
             TextFormField(
               controller: _emailController,
               decoration: InputDecoration(
@@ -203,6 +229,25 @@ class _EmailLoginState extends State<EmailLogin> {
               keyboardType: TextInputType.emailAddress,
               onChanged: _validateEmail,
             ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: _isEmailValid ? _navigateToOtpScreen : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  "Continue",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            const Spacer(flex: 2),
           ],
         ),
       ),
