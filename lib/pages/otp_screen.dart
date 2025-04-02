@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:helpalife_mobile/home_screen/home_page.dart';
 import '../constants.dart';
+import 'package:get/get.dart';
 
 class OtpScreen extends StatefulWidget {
   final String contactInfo;
@@ -34,6 +36,7 @@ class _OtpScreenState extends State<OtpScreen> {
         _isLoading = false;
         _errorMessage = 'Invalid OTP. Please try again.';
       });
+      Get.to(HomePage());
     }
   }
 
