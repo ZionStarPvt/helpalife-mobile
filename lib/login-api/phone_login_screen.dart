@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-
+import 'email_login_screen.dart';
 import '../pages/otp_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class PhoneLogin extends StatefulWidget {
+  const PhoneLogin({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _PhoneLoginState createState() => _PhoneLoginState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _PhoneLoginState extends State<PhoneLogin> {
   bool _isValidPhone = false;
   String _completePhoneNumber = "";
 
@@ -158,97 +158,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class EmailLogin extends StatefulWidget {
-  const EmailLogin({super.key});
-
-  @override
-  _EmailLoginState createState() => _EmailLoginState();
-}
-
-class _EmailLoginState extends State<EmailLogin> {
-  final TextEditingController _emailController = TextEditingController();
-  String? _emailError;
-  bool _isEmailValid = false;
-
-  void _validateEmail(String value) {
-    if (value.isEmpty) {
-      setState(() {
-        _emailError = "Email is required";
-        _isEmailValid = false;
-      });
-    } else if (!RegExp(
-      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
-    ).hasMatch(value)) {
-      setState(() {
-        _emailError = "Invalid email address";
-        _isEmailValid = false;
-      });
-    } else {
-      setState(() {
-        _emailError = null;
-        _isEmailValid = true;
-      });
-    }
-  }
-
-  void _navigateToOtpScreen() {
-    if (_isEmailValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OtpScreen(contactInfo: _emailController.text),
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Email Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: "Email",
-                border: const OutlineInputBorder(),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-                errorText: _emailError,
-              ),
-              keyboardType: TextInputType.emailAddress,
-              onChanged: _validateEmail,
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _isEmailValid ? _navigateToOtpScreen : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  "Continue",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            const Spacer(flex: 2),
-          ],
         ),
       ),
     );

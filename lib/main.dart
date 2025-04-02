@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login-api/login_screen.dart';
+import 'login-api/phone_login_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  MaterialPageRoute(builder: (context) => const PhoneLogin()),
                 );
               },
               child: const Text("Go to Login"),
