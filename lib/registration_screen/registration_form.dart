@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:helpalife_mobile/constants.dart';
 import 'blood_group_dropdown.dart';
-import 'confirm_password_field.dart';
-import 'email_field.dart';
 import 'location_field.dart';
-import 'name_field.dart';
-import 'password_field.dart';
 import 'phone_number_field.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -44,12 +40,45 @@ class RegistrationFormState extends State<RegistrationForm> {
       key: _formKey,
       child: Column(
         children: [
-          NameField(controller: _nameController),
-          EmailField(controller: _emailController),
-          PasswordField(controller: _passwordController),
-          ConfirmPasswordField(
-            controller: _confirmPasswordController,
-            passwordController: _passwordController,
+          buildValidatedTextField(
+            "Full Name",
+            _nameController,
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) return 'Required';
+              return null;
+            },
+          ),
+          buildValidatedTextField(
+            "Email Address",
+            _emailController,
+            validator: (value) {
+              if (value == null ||
+                  !RegExp(
+                    r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+                  ).hasMatch(value.trim())) {
+                return 'Invalid Email';
+              }
+              return null;
+            },
+          ),
+          buildValidatedTextField(
+            "Password",
+            _passwordController,
+            obscureText: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'Required';
+              return null;
+            },
+          ),
+          buildValidatedTextField(
+            "Confirm Password",
+            _confirmPasswordController,
+            obscureText: true,
+            validator: (value) {
+              if (value != _passwordController.text)
+                return 'Passwords do not match';
+              return null;
+            },
           ),
           LocationField(
             selectedLocation: _selectedLocation,
