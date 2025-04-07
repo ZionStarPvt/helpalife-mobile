@@ -11,3 +11,13 @@ loadingAnimation(double size) {
     ),
   );
 }
+
+InputDecoration inputDecoration() {
+  return InputDecoration(
+    filled: true,
+    fillColor: Colors.grey[200],
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  );
+}
