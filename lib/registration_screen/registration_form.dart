@@ -64,7 +64,7 @@ class RegistrationFormState extends State<RegistrationForm> {
     );
   }
 
-  Widget _buildValidatedTextField(String label, TextEditingController controller,
+  _buildValidatedTextField(String label, TextEditingController controller,
       {bool obscureText = false, String? Function(String?)? validator}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,41 +82,33 @@ class RegistrationFormState extends State<RegistrationForm> {
     );
   }
 
-  Widget _buildPhoneNumberField() {
-    return FormField<String>(
-      validator: (_) {
-        final phone = _phoneController.text.trim();
-        if (phone.isEmpty || !RegExp(r'^\d+$').hasMatch(phone)) {
-          return 'Invalid phone number';
-        }
-        return null;
-      },
-      builder: (state) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Phone Number", style: TextStyle(fontSize: 10, color: Colors.grey[400])),
-          SizedBox(height: 5),
-          IntlPhoneField(
-            controller: _phoneController,
-            initialCountryCode: 'IN',
-            decoration: inputDecoration(),
-            onChanged: (phone) {
-              _phoneController.text = phone.number;
-              state.didChange(phone.number);
-            },
-          ),
-          if (state.hasError)
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(state.errorText!, style: TextStyle(color: Colors.red, fontSize: 12)),
-            ),
-          SizedBox(height: 10),
-        ],
-      ),
+  _buildPhoneNumberField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Phone Number", style: TextStyle(fontSize: 10, color: Colors.grey[400])),
+        SizedBox(height: 5),
+        IntlPhoneField(
+          controller: _phoneController,
+          initialCountryCode: 'IN',
+          decoration: inputDecoration(),
+          validator: (phone) {
+            final phoneText = phone?.number.trim() ?? '';
+            if (phoneText.isEmpty || !RegExp(r'^\d{10}$').hasMatch(phoneText)) {
+              return 'Invalid phone number';
+            }
+            return null;
+          },
+          onChanged: (phone) {
+            _phoneController.text = phone.number;
+          },
+        ),
+        SizedBox(height: 10),
+      ],
     );
   }
 
-  Widget _buildLocationField() {
+  _buildLocationField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -155,7 +147,7 @@ class RegistrationFormState extends State<RegistrationForm> {
     );
   }
 
-  Widget _buildBloodGroupField() {
+ _buildBloodGroupField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

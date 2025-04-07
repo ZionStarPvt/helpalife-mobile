@@ -1,3 +1,5 @@
+import 'dart:io' show File;
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:helpalife_mobile/registration_screen/registration_form.dart';
 
@@ -10,7 +12,16 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final GlobalKey<RegistrationFormState> _formKey = GlobalKey<RegistrationFormState>();
+  File? imageFile;
 
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,18 +47,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           CircleAvatar(
                             radius: 35,
                             backgroundColor: Colors.black,
-                            child: Icon(Icons.person, size: 40, color: Colors.white),
+                            backgroundImage: imageFile != null
+                                ? FileImage(imageFile!)
+                                : null,
+                            child: imageFile == null
+                                ? Icon(Icons.person, size: 40, color: Colors.white)
+                                : null,
                           ),
                           Positioned(
                             bottom: 0,
                             right: 0,
-                            child: CircleAvatar(
-                              radius: 13,
-                              backgroundColor: Colors.white,
+                            child: GestureDetector(
+                              onTap: _pickImage,
                               child: CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Colors.black,
-                                child: Icon(Icons.camera_alt, size: 11, color: Colors.white),
+                                radius: 13,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: Colors.black,
+                                  child: Icon(Icons.camera_alt, size: 11, color: Colors.white),
+                                ),
                               ),
                             ),
                           ),
