@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:helpalife_mobile/history_screen/history_page.dart';
-import 'package:helpalife_mobile/home_screen/bottom_navigation_bar.dart';
-import 'package:helpalife_mobile/home_screen/home_page.dart';
-import 'package:helpalife_mobile/profile_screen/profile_page.dart';
-import 'package:helpalife_mobile/registration_screen/registration_page.dart';
 
 class NotificationSettingsPage extends StatefulWidget {
   @override
@@ -14,41 +9,6 @@ class NotificationSettingsPage extends StatefulWidget {
 class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   bool emailNotifications = false;
   bool pushNotifications = false;
-  int _currentIndex = 0; // Initialize currentIndex for bottom navigation
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-
-    // Handle navigation based on the tapped index
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-        break;
-      case 1:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HistoryPage()),
-        );
-        break;
-      case 2:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => RegistrationPage()),
-        );
-        break;
-      case 3:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => ProfilePage()),
-        );
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +53,6 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
       ),
     );
   }

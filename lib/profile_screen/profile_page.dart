@@ -81,26 +81,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Handle logout action
                   },
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero, // Remove default padding
-                    minimumSize: Size(0, 0), // Avoid extra spacing
-                    tapTargetSize:
-                        MaterialTapTargetSize.shrinkWrap, // Reduce touch area
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size(0, 0),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
                     'Log out',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
-                      fontWeight: FontWeight.w500, // Match the Figma design
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                SizedBox(height: 4), // Space between text and line
-                Container(
-                  width: 50, // Adjust dynamically if needed
-                  height: 1.5, // Thickness of the line
-                  color: Colors.black,
-                ),
+                SizedBox(height: 4),
+                Container(width: 50, height: 1.5, color: Colors.black),
               ],
             ),
           ),

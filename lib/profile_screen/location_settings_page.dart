@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:helpalife_mobile/history_screen/history_page.dart';
-import 'package:helpalife_mobile/home_screen/bottom_navigation_bar.dart';
-import 'package:helpalife_mobile/home_screen/home_page.dart';
-import 'package:helpalife_mobile/profile_screen/profile_page.dart';
-import 'package:helpalife_mobile/registration_screen/registration_page.dart';
 
 class LocationSettingsPage extends StatefulWidget {
   @override
@@ -14,36 +9,6 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
   bool allowLocationAccess = false;
   bool alertForBloodRequest = false;
   String selectedRadius = "20 miles";
-  int _currentIndex = 0;
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-
-    Widget nextScreen;
-    switch (index) {
-      case 0:
-        nextScreen = HomePage();
-        break;
-      case 1:
-        nextScreen = HistoryPage();
-        break;
-      case 2:
-        nextScreen = RegistrationPage();
-        break;
-      case 3:
-        nextScreen = ProfilePage();
-        break;
-      default:
-        return;
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => nextScreen),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +63,6 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-      ),
     );
   }
 
@@ -114,7 +75,6 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // First Row: bullet + title + switch
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
