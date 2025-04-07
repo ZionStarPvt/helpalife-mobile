@@ -12,28 +12,12 @@ loadingAnimation(double size) {
   );
 }
 
- buildValidatedTextField(
-    String label,
-    TextEditingController controller, {
-      bool obscureText = false,
-      String? Function(String?)? validator,
-    }) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: TextStyle(fontSize: 10, color: Colors.grey[400])),
-      SizedBox(height: 5),
-      TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        validator: validator,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.grey[200],
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-      ),
-      SizedBox(height: 10),
-    ],
+InputDecoration inputDecoration() {
+  return InputDecoration(
+    filled: true,
+    fillColor: Colors.grey[200],
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
   );
 }
