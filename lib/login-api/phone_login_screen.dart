@@ -52,9 +52,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 onChanged: (phone) {
                   setState(() {
                     _completePhoneNumber = phone.completeNumber;
-                    _isValidPhone = RegExp(
-                      r'^[0-9]{10,}$',
-                    ).hasMatch(phone.number);
+                    _isValidPhone = RegExp(r'^\+?[1-9]\d{5,16}$').hasMatch(phone.number);
                   });
                 },
               ),
