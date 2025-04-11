@@ -3,7 +3,9 @@ import 'package:helpalife_mobile/history_screen/history_page.dart';
 import 'package:helpalife_mobile/profile_screen/profile_page.dart';
 import 'package:helpalife_mobile/registration_screen/registration_page.dart';
 import 'bottom_navigation_bar.dart';
+import 'donate_list.dart';
 import 'donate_map.dart';
+import 'find_donors_list.dart';
 import 'find_donors_map.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,11 +59,10 @@ class _HomePageState extends State<HomePage>
       barrierColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.78,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Colors.white),
-        );
+        final isFindDonorsTab = _tabController.index == 0;
+        return isFindDonorsTab
+            ? FindDonorsList(donorsList: [])
+            : DonateList(donateList: []);
       },
     );
   }
