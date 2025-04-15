@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:helpalife_mobile/home_screen/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 import 'package:get/get.dart';
 
@@ -27,16 +28,18 @@ class _OtpScreenState extends State<OtpScreen> {
     await Future.delayed(Duration(seconds: 2));
 
     if (otpCode == '123456') {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
+      Get.offAll(() => HomePage()); // Navigate to home and clear back stack
       setState(() {
         _isLoading = false;
       });
-      Navigator.pushReplacementNamed(context, '/home');
     } else {
       setState(() {
         _isLoading = false;
         _errorMessage = 'Invalid OTP. Please try again.';
       });
-      Get.to(HomePage());
     }
   }
 
