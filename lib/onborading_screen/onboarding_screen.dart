@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:helpalife_mobile/login-api/phone_login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../home_screen/home_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -12,6 +15,12 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
 
   final List<String> _titles = [
     'Locate Life-Saving Donors Near You',
@@ -42,6 +51,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         borderRadius: BorderRadius.circular(8),
       ),
     );
+  }
+
+  void _checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      // Navigate to HomePage and remove onboarding from stack
+      Get.offAll(() => HomePage());
+    }
   }
 
   @override
