@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_switch/flutter_switch.dart';
 class LocationSettingsPage extends StatefulWidget {
   @override
   _LocationSettingsPageState createState() => _LocationSettingsPageState();
@@ -14,7 +14,8 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location Settings'),
+        title: Text('Location Settings',
+          style: TextStyle(fontWeight: FontWeight.bold),),
         leading: Padding(
           padding: EdgeInsets.only(left: 8.0),
           child: IconButton(
@@ -49,7 +50,7 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
                 });
               },
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 40),
             _buildSwitchTile(
               "Get alerts for emergency blood request\nwithin your chosen radius",
               "",
@@ -72,57 +73,63 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
     bool value,
     Function(bool) onChanged,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "•  ",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "•  ",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  if (subtitle.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        subtitle,
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
-                      ),
+                      ],
                     ),
-                ],
+                    if (subtitle.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          subtitle,
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            Switch(
-              value: value,
-              onChanged: onChanged,
-              activeColor: Colors.black,
-              activeTrackColor: Colors.grey.shade700,
-              inactiveThumbColor: Colors.grey.shade400,
-              inactiveTrackColor: Colors.grey.shade300,
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-      ],
+              FlutterSwitch(
+                width: 42.0,
+                height: 22.0,
+                toggleSize: 18.0,
+                value: value,
+                borderRadius: 20.0,
+                activeColor: Colors.black,
+                inactiveColor: Colors.grey.shade400,
+                toggleColor: Colors.white,
+                padding: 2.0,
+                onToggle: onChanged,
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+        ],
+      ),
     );
   }
 
@@ -142,13 +149,14 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "•  ",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  "•",
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     title,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -156,8 +164,8 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
           ),
           SizedBox(width: 10),
           Container(
-            width: 120,
-            height: 36,
+            height: 32,
+            width: 100,
             padding: EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
               color: Colors.grey.shade200,
@@ -168,26 +176,13 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
               child: DropdownButton<String>(
                 value: selectedValue,
                 isExpanded: true,
-                icon: Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.black,
-                  size: 20,
-                ),
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
+                icon: Icon(Icons.arrow_drop_down, size: 18),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500,color: Colors.black),
                 dropdownColor: Colors.white,
-                items:
-                    options
-                        .map(
-                          (option) => DropdownMenuItem(
-                            value: option,
-                            child: Text(option, style: TextStyle(fontSize: 14)),
-                          ),
-                        )
-                        .toList(),
+                items: options.map((option) => DropdownMenuItem(
+                  value: option,
+                  child: Text(option, style: TextStyle(fontSize: 13)),
+                )).toList(),
                 onChanged: onChanged,
               ),
             ),

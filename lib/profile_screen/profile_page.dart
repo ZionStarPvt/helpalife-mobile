@@ -23,83 +23,89 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile'), centerTitle: true),
-      body: ListView(
-        padding: EdgeInsets.all(16.0),
-        children: [
-          _buildProfileHeader(),
-          SizedBox(height: 20),
-          _buildSectionTitle('Settings'),
-          _buildListTile(
-            Icons.location_on,
-            'Location settings',
-            () => _navigateTo(LocationSettingsPage()),
-          ),
-          Divider(), // Horizontal line
-          _buildListTile(
-            Icons.notifications,
-            'Notification Settings',
-            () => _navigateTo(NotificationSettingsPage()),
-          ),
-          Divider(),
-          SizedBox(height: 20),
-          _buildSectionTitle('Support'),
-          _buildListTile(
-            Icons.help_outline,
-            'Help Center',
-            () => _navigateTo(HelpCenterPage()),
-          ),
-          Divider(),
-          _buildListTile(
-            Icons.feedback,
-            'Give us feedback',
-            () => _navigateTo(GiveUsFeedbackPage()),
-          ),
-          Divider(),
-          SizedBox(height: 20),
-          _buildSectionTitle('Legal'),
-          _buildListTile(
-            Icons.description,
-            'Terms of Service',
-            () => _navigateTo(TermsOfServicePage()),
-          ),
-          Divider(),
-          _buildListTile(
-            Icons.privacy_tip,
-            'Privacy Policy',
-            () => _navigateTo(PrivacyPolicyPage()),
-          ),
-          Divider(),
-          SizedBox(height: 30),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Handle logout action
-                  },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: Size(0, 0),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: Text(
-                    'Log out',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+      appBar: AppBar(
+        title: const Text('Profile'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView(
+          padding: EdgeInsets.all(16.0),
+          children: [
+            _buildProfileHeader(),
+            SizedBox(height: 20),
+            _buildSectionTitle('Settings'),
+            _buildListTile(
+              Icons.location_on_outlined,
+              'Location settings',
+              () => _navigateTo(LocationSettingsPage()),
+            ),
+            Divider(), // Horizontal line
+            _buildListTile(
+              Icons.notifications_outlined,
+              'Notification Settings',
+              () => _navigateTo(NotificationSettingsPage()),
+            ),
+            Divider(),
+            SizedBox(height: 20),
+            _buildSectionTitle('Support'),
+            _buildListTile(
+              Icons.help_outline,
+              'Help Center',
+              () => _navigateTo(HelpCenterPage()),
+            ),
+            Divider(),
+            _buildListTile(
+              Icons.edit_outlined,
+              'Give us feedback',
+              () => _navigateTo(GiveUsFeedbackPage()),
+            ),
+            Divider(),
+            SizedBox(height: 20),
+            _buildSectionTitle('Legal'),
+            _buildListTile(
+              Icons.menu_book_outlined,
+              'Terms of Service',
+              () => _navigateTo(TermsOfServicePage()),
+            ),
+            Divider(),
+            _buildListTile(
+              Icons.menu_book_outlined,
+              'Privacy Policy',
+              () => _navigateTo(PrivacyPolicyPage()),
+            ),
+            Divider(),
+            SizedBox(height: 12),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // Handle logout action
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size(0, 0),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    child: Text(
+                      'Log out',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 4),
-                Container(width: 50, height: 1.5, color: Colors.black),
-              ],
+                  Container(width: 55, height: 1.5, color: Colors.black),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -143,16 +149,17 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         title,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
 
   Widget _buildListTile(IconData icon, String title, VoidCallback onTap) {
     return ListTile(
-      leading: Icon(icon, color: Colors.black54),
+      contentPadding: EdgeInsets.zero, // Remove extra horizontal padding
+      leading: Icon(icon, color: Colors.black),
       title: Text(title),
-      trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black54),
+      trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
       onTap: onTap,
     );
   }

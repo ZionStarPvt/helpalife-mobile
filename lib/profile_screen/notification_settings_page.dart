@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class NotificationSettingsPage extends StatefulWidget {
   @override
@@ -18,9 +19,12 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
           'Notification Settings',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back, size: 28),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
       ),
       body: Padding(
@@ -29,23 +33,21 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSwitchTile(
-              title: 'Notify me via email',
-              subtitle:
-                  'Get updates about your donations and blood needs via email',
-              value: emailNotifications,
-              onChanged: (value) {
+              'Notify me via email',
+              'Get updates about your donations and blood needs\nvia email',
+               emailNotifications,
+               (value) {
                 setState(() {
                   emailNotifications = value;
                 });
               },
             ),
-            Divider(),
+            SizedBox(height: 20),
             _buildSwitchTile(
-              title: 'Enable push notifications',
-              subtitle:
-                  'Get real-time notifications directly on your browser for immediate needs.',
-              value: pushNotifications,
-              onChanged: (value) {
+             'Enable push notifications',
+              'Get real-time notifications directly on your browser\nfor immediate needs.',
+               pushNotifications,
+              (value) {
                 setState(() {
                   pushNotifications = value;
                 });
@@ -57,12 +59,12 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     );
   }
 
-  Widget _buildSwitchTile({
-    required String title,
-    required String subtitle,
-    required bool value,
-    required Function(bool) onChanged,
-  }) {
+  Widget _buildSwitchTile(
+    String title,
+    String subtitle,
+    bool value,
+    Function(bool) onChanged,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,7 +73,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
           children: [
             Text(
               '•  ',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
             Expanded(
               child: Column(
@@ -83,7 +85,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                         child: Text(
                           title,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -101,13 +103,17 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                 ],
               ),
             ),
-            Switch(
+            FlutterSwitch(
+              width: 42.0,
+              height: 22.0,
+              toggleSize: 18.0,
               value: value,
-              onChanged: onChanged,
+              borderRadius: 20.0,
               activeColor: Colors.black,
-              activeTrackColor: Colors.grey.shade700,
-              inactiveThumbColor: Colors.grey.shade400,
-              inactiveTrackColor: Colors.grey.shade300,
+              inactiveColor: Colors.grey.shade400,
+              toggleColor: Colors.white,
+              padding: 2.0,
+              onToggle: onChanged,
             ),
           ],
         ),
