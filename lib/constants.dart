@@ -12,12 +12,20 @@ loadingAnimation(double size) {
   );
 }
 
-InputDecoration inputDecoration() {
+InputDecoration inputDecoration({Widget? suffixIcon}) {
+  OutlineInputBorder borderStyle = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(4),
+    borderSide: BorderSide(color: Color(0xFFEFEFEF),),
+  );
+
   return InputDecoration(
     filled: true,
-    fillColor: Colors.grey[200],
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    fillColor: Color(0xFFEFEFEF),
+    contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+    enabledBorder: borderStyle,
+    focusedBorder: borderStyle,
+    errorBorder: borderStyle.copyWith(borderSide: BorderSide(color: Colors.red)),
+    focusedErrorBorder: borderStyle.copyWith(borderSide: BorderSide(color: Colors.red)),
+    suffixIcon: suffixIcon,
   );
 }
