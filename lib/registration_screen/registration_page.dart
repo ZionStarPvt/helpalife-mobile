@@ -166,7 +166,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[00])),
+        Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
         const SizedBox(height: 5),
         TextFormField(
           controller: controller,
