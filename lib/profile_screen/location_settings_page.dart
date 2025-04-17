@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import '../constants.dart';
 class LocationSettingsPage extends StatefulWidget {
   @override
   _LocationSettingsPageState createState() => _LocationSettingsPageState();
@@ -29,7 +30,7 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSwitchTile(
+            buildSwitchTile(
               "Allow location access",
               "Share your location with the website to find nearby blood needs",
               allowLocationAccess,
@@ -51,7 +52,7 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
               },
             ),
             SizedBox(height: 40),
-            _buildSwitchTile(
+            buildSwitchTile(
               "Get alerts for emergency blood request\nwithin your chosen radius",
               "",
               alertForBloodRequest,
@@ -67,71 +68,8 @@ class _LocationSettingsPageState extends State<LocationSettingsPage> {
     );
   }
 
-  Widget _buildSwitchTile(
-    String title,
-    String subtitle,
-    bool value,
-    Function(bool) onChanged,
-  ) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "•  ",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            title,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (subtitle.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          subtitle,
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              FlutterSwitch(
-                width: 42.0,
-                height: 22.0,
-                toggleSize: 18.0,
-                value: value,
-                borderRadius: 20.0,
-                activeColor: Colors.black,
-                inactiveColor: Colors.grey.shade400,
-                toggleColor: Colors.white,
-                padding: 2.0,
-                onToggle: onChanged,
-              ),
-            ],
-          ),
-          SizedBox(height: 12),
-        ],
-      ),
-    );
-  }
+
+
 
   Widget _buildDropdownTile(
     String title,
