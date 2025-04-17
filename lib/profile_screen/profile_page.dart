@@ -16,9 +16,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  void _navigateTo(Widget page) {
-    Get.to(() => page);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +37,13 @@ class _ProfilePageState extends State<ProfilePage> {
             _buildListTile(
               Icons.location_on_outlined,
               'Location settings',
-              () => _navigateTo(LocationSettingsPage()),
+                  () => Get.to(() => LocationSettingsPage()),
             ),
             Divider(), // Horizontal line
             _buildListTile(
               Icons.notifications_outlined,
               'Notification Settings',
-              () => _navigateTo(NotificationSettingsPage()),
+                  () => Get.to(() => NotificationSettingsPage()),
             ),
             Divider(),
             SizedBox(height: 20),
@@ -53,13 +51,13 @@ class _ProfilePageState extends State<ProfilePage> {
             _buildListTile(
               Icons.help_outline,
               'Help Center',
-              () => _navigateTo(HelpCenterPage()),
+                  () => Get.to(() => HelpCenterPage()),
             ),
             Divider(),
             _buildListTile(
               Icons.edit_outlined,
               'Give us feedback',
-              () => _navigateTo(GiveUsFeedbackPage()),
+                  () => Get.to(() => GiveUsFeedbackPage()),
             ),
             Divider(),
             SizedBox(height: 20),
@@ -67,13 +65,13 @@ class _ProfilePageState extends State<ProfilePage> {
             _buildListTile(
               Icons.menu_book_outlined,
               'Terms of Service',
-              () => _navigateTo(TermsOfServicePage()),
+                  () => Get.to(() => TermsOfServicePage()),
             ),
             Divider(),
             _buildListTile(
               Icons.menu_book_outlined,
               'Privacy Policy',
-              () => _navigateTo(PrivacyPolicyPage()),
+                  () => Get.to(() => PrivacyPolicyPage()),
             ),
             Divider(),
             SizedBox(height: 12),
