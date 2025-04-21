@@ -134,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   TextButton(
                     onPressed: () {
                       if (_currentPage == 0) {
-                          Get.to(PhoneLogin());
+                        Get.offAll(() => PhoneLogin());
                       }else{
                         _controller.animateToPage(
                           _currentPage - 1,
@@ -152,7 +152,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_currentPage == _images.length - 1) {
-                            Get.to(PhoneLogin());
+                        Get.offAll(() => PhoneLogin());
                       } else {
                         _controller.animateToPage(
                           _currentPage + 1,

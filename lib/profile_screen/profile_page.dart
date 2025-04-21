@@ -4,7 +4,9 @@ import 'package:helpalife_mobile/profile_screen/give_us_feedback_page.dart';
 import 'package:helpalife_mobile/profile_screen/help_center_page.dart';
 import 'package:helpalife_mobile/profile_screen/privacy_policy_page.dart';
 import 'package:helpalife_mobile/profile_screen/terms_of_service_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../login-api/phone_login_screen.dart';
 import 'location_settings_page.dart';
 import 'notification_settings_page.dart';
 
@@ -17,6 +19,11 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  Future<void> logout(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    Get.offAll(() => PhoneLogin());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +89,26 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      // Handle logout action
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("Confirm Logout"),
+                          content: Text("Are you sure you want to logout?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); 
+                                logout(context);
+                              },
+                              child: Text("Logout"),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
