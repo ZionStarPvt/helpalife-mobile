@@ -31,10 +31,7 @@ class _HomePageState extends State<HomePage>
 
   final List<Widget> _pages = [
     Container(),
-    HistoryPage(
-      isRegistered: true,
-      donationHistory: [],
-    ),
+    HistoryPage(),
     RegistrationPage(),
     ProfilePage(),
   ];

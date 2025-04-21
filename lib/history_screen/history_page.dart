@@ -1,20 +1,54 @@
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {
-  final List<Map<String, String>> donationHistory;
-  final bool isRegistered;
-
-  const HistoryPage({
-    super.key,
-   required this.donationHistory,
-    required this.isRegistered,
-  });
+  const HistoryPage({super.key});
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  final bool isRegistered = true;
+
+  final List<Map<String, String>> donationHistory = [
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+    },
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+    },
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+    },
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +67,10 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   Widget _buildBody() {
-    if (!widget.isRegistered) {
+    if (!isRegistered) {
       // User not registered
       return _buildRegisterPrompt();
-    } else if (widget.donationHistory.isEmpty) {
+    } else if (donationHistory.isEmpty) {
       // Registered but no donation history
       return _buildNoHistoryFound();
     } else {
@@ -95,11 +129,18 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget _buildDonationList() {
     return ListView.builder(
       padding: const EdgeInsets.all(12),
-      itemCount: widget.donationHistory.length,
+      itemCount: donationHistory.length,
       itemBuilder: (context, index) {
-        final item = widget.donationHistory[index];
+        final item = donationHistory[index];
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 6),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: Colors.grey.shade400,
+              width: 1.0,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: RichText(
@@ -107,8 +148,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 style: const TextStyle(color: Colors.black),
                 children: [
                   TextSpan(
-                    text: "${item['name']} ",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    text: "${item['name']}   ",
                   ),
                   TextSpan(
                     text: item['bloodGroup'],
@@ -120,9 +160,9 @@ class _HistoryPageState extends State<HistoryPage> {
                   TextSpan(
                     text:
                         " blood on ${item['date']} for ${item['reason']}\n\n"
-                        "Hospital: ${item['hospital']}\n"
-                        "Location: ${item['location']}\n"
-                        "Country: ${item['country']}",
+                        "Hospital   :${item['hospital']}\n"
+                        "Location   :${item['location']}\n"
+                        "Country    :${item['country']}",
                   ),
                 ],
               ),
