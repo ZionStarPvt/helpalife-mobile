@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DonateList extends StatefulWidget {
-  final List<Map<String, String>> donateList;
-
-  const DonateList({super.key, required this.donateList});
+  const DonateList({super.key});
 
   @override
   State<DonateList> createState() => _DonateListState();
@@ -11,6 +9,49 @@ class DonateList extends StatefulWidget {
 
 class _DonateListState extends State<DonateList> {
   int? _selectedIndex;
+
+  final List<Map<String, String>> donateList=[
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+      'no of units': '742202'
+    },
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+      'no of units': '742202'
+    },
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+      'no of units': '742202'
+    },
+    {
+      'name': 'Sahalam sk',
+      'bloodGroup': 'A+',
+      'date': '1994-01-12',
+      'reason': 'Shankarpur house number reason',
+      'hospital': 'Janugipur hospital',
+      'location': 'West Bengal, Murshidabad',
+      'country': 'India',
+      'no of units': '742202'
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +81,12 @@ class _DonateListState extends State<DonateList> {
           // List content
           Expanded(
             child:
-                widget.donateList.isEmpty
+             donateList.isEmpty
                     ? const Center(child: Text("No donations found"))
                     : ListView.builder(
-                      itemCount: widget.donateList.length,
+                      itemCount: donateList.length,
                       itemBuilder: (context, index) {
-                        final item = widget.donateList[index];
+                        final item = donateList[index];
                         final isSelected = _selectedIndex == index;
 
                         return GestureDetector(
@@ -56,10 +97,15 @@ class _DonateListState extends State<DonateList> {
                             });
                           },
                           child: Card(
+                            color: Colors.white,
                             elevation: 2,
                             margin: const EdgeInsets.symmetric(vertical: 6),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: Colors.grey.shade400,
+                                width: 1.0,
+                              ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
@@ -73,10 +119,7 @@ class _DonateListState extends State<DonateList> {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text: "${item['name']} ",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          text: "${item['name']}  ",
                                         ),
                                         TextSpan(
                                           text: item['bloodGroup'],
@@ -88,9 +131,9 @@ class _DonateListState extends State<DonateList> {
                                         TextSpan(
                                           text:
                                               " blood on ${item['date']} for ${item['reason']}\n\n"
-                                              "Hospital: ${item['hospital']}\n"
-                                              "Location: ${item['location']}\n"
-                                              "Country: ${item['country']}",
+                                              "Hospital   :${item['hospital']}\n"
+                                              "Location   :${item['location']}\n"
+                                              "Country    :${item['country']}\n",
                                         ),
                                       ],
                                     ),
@@ -98,7 +141,7 @@ class _DonateListState extends State<DonateList> {
                                   if (isSelected) ...[
                                     const SizedBox(height: 10),
                                     Text(
-                                      "No of units: ${item['units']}",
+                                      "No of units: ${item['no of units']}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -110,10 +153,16 @@ class _DonateListState extends State<DonateList> {
                                         showDonateDialog(context);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.redAccent,
-                                        foregroundColor: Colors.white,
+                                     backgroundColor: Colors.redAccent,
+                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: const Text("I Can Donate"),
+                                    ),
+                                    child: const Text("I Can Donate",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                     ),
                                   ],
                                 ],

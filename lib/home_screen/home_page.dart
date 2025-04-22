@@ -61,8 +61,8 @@ class _HomePageState extends State<HomePage>
       builder: (context) {
         final isFindDonorsTab = _tabController.index == 0;
         return isFindDonorsTab
-            ? FindDonorsList(donorsList: [])
-            : DonateList(donateList: []);
+            ? FindDonorsList()
+            : DonateList();
       },
     );
   }

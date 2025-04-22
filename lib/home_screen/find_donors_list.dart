@@ -2,9 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:helpalife_mobile/home_screen/request_donors.dart';
 
 class FindDonorsList extends StatelessWidget {
-  final List<Map<String, dynamic>> donorsList;
+  FindDonorsList({super.key});
 
-  const FindDonorsList({super.key, required this.donorsList});
+  final List<Map<String, dynamic>> donorsList = [
+    {
+      'name': 'Jelina Denslova',
+      'location': 'Route 26, New York',
+      'bloodGroup': 'O+',
+      'profileImage': 'assets/images/profile1.png',
+    },
+    {
+      'name': 'Jelina Denslova',
+      'location': 'Route 26, New York',
+      'bloodGroup': 'O+',
+      'profileImage': 'assets/images/profile1.png',
+    },
+    {
+      'name': 'Jelina Denslova',
+      'location': 'Route 26, New York',
+      'bloodGroup': 'O+',
+      'profileImage': 'assets/images/profile1.png',
+    },
+    {
+      'name': 'Jelina Denslova',
+      'location': 'Route 26, New York',
+      'bloodGroup': 'O+',
+      'profileImage': 'assets/images/profile1.png',
+    },
+    {
+      'name': 'Jelina Denslova',
+      'location': 'Route 26, New York',
+      'bloodGroup': 'O+',
+      'profileImage': 'assets/images/profile1.png',
+    },
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +70,15 @@ class FindDonorsList extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final donor = donorsList[index];
                         return Card(
+                          color: Colors.white,
                           elevation: 2,
                           margin: const EdgeInsets.symmetric(vertical: 8),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1.0,
+                            ),
                           ),
                           child: ListTile(
                             leading: CircleAvatar(
