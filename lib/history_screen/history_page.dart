@@ -133,6 +133,7 @@ class _HistoryPageState extends State<HistoryPage> {
       itemBuilder: (context, index) {
         final item = donationHistory[index];
         return Card(
+          color: Colors.white,
           margin: const EdgeInsets.symmetric(vertical: 6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
