@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:helpalife_mobile/home_screen/home_page.dart';
 import 'package:helpalife_mobile/login-api/phone_login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -115,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   TextButton(
                     onPressed: () {
                       if (_currentPage == 0) {
-                          Get.to(PhoneLogin());
+                          Get.to(HomePage());
                       }else{
                         _controller.animateToPage(
                           _currentPage - 1,
@@ -133,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_currentPage == _images.length - 1) {
-                            Get.to(PhoneLogin());
+                            Get.to(HomePage());
                       } else {
                         _controller.animateToPage(
                           _currentPage + 1,
