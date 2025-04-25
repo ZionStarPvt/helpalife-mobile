@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../constants.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'email_login_screen.dart';
 import '../pages/otp_screen.dart';
-
+import 'package:devicelocale/devicelocale.dart';
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({super.key});
 
@@ -14,9 +15,49 @@ class PhoneLogin extends StatefulWidget {
 class _PhoneLoginState extends State<PhoneLogin> {
   bool _isValidPhone = false;
   String _completePhoneNumber = "";
+  String? _userCountryCode;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceCountry();
+  }
+
+  Future<void> _getDeviceCountry() async {
+    try {
+      final locale = await Devicelocale.currentLocale;
+      debugPrint("Locale: $locale");
+
+      final countryCode = locale?.split(RegExp('[_-]')).last.toUpperCase();
+
+      if (mounted) {
+        setState(() {
+          _userCountryCode = countryCode ?? 'IN';
+          _isLoading = false;
+        });
+
+        if (_userCountryCode != 'IN') {
+          Get.off(() => const EmailLogin());
+        }
+      }
+    } catch (e) {
+      debugPrint("Failed to get locale: $e");
+      if (mounted) {
+        setState(() {
+          _userCountryCode = 'IN';
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+    return loadingAnimation(50);
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
