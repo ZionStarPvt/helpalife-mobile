@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:helpalife_mobile/history_screen/history_page.dart';
 import 'package:helpalife_mobile/profile_screen/profile_page.dart';
 import 'package:helpalife_mobile/registration_screen/registration_page.dart';
@@ -11,6 +12,9 @@ import 'find_donors_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,6 +30,8 @@ class _HomePageState extends State<HomePage>
   String currentLocation = "Current Location";
   late LatLng _currentPosition;
   GoogleMapController? _mapController;
+
+  final TextEditingController _locationController = TextEditingController();
 
 
   final List<String> bloodGroups = ["O+", "A+", "B+", "AB+", "O-", "A-", "B-", "AB-"];
@@ -179,15 +185,38 @@ class _HomePageState extends State<HomePage>
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: TextField(
-                                      controller: TextEditingController(text: currentLocation),
-                                      style: TextStyle(fontSize: 16),
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.symmetric(vertical: 12),
+                                    child: GooglePlaceAutoCompleteTextField(
+                                      boxDecoration: BoxDecoration(
+                                        color: Colors.white
                                       ),
-                                    ),
+                              textEditingController: _locationController,
+                                googleAPIKey: dotenv.env['GOOGLE_API_KEY'] ?? "",
+                                inputDecoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(vertical: 12),
+                                ),
+                                debounceTime: 800,
+                                countries: ["in"],
+                                isLatLngRequired: true,
+                                getPlaceDetailWithLatLng: (Prediction prediction) {
+                                  setState(() {
+                                    currentLocation = prediction.description ?? "";
+                                    _locationController.text = currentLocation;
+                                    if (prediction.lat != null && prediction.lng != null) {
+                                      _currentPosition = LatLng(
+                                        double.parse(prediction.lat!),
+                                        double.parse(prediction.lng!),
+                                      );
+                                    }
+                                  });
+                                },
+                                itemClick: (Prediction prediction) {
+                                  _locationController.text = prediction.description ?? "";
+                                },
+                                seperatedBuilder: Divider(),
+                                isCrossBtnShown: true,
+                              ),
                                   ),
 
                                   // Dropdown icon
